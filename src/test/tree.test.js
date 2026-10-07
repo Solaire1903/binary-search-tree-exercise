@@ -54,3 +54,17 @@ describe("Tree correctly initialized", () => {
     expect(rightChild.right.right).toBeNull();
   });
 });
+
+describe("Function test: includes", () => {
+  const tree = new Tree([6, 3, 9, 7, 1, 0, 64, 3, 5, 85, 5, 23, 3, 5]);
+
+  test("Value is in the tree", () => {
+    expect(tree.includes(5)).toBeTruthy();
+    expect(tree.includes(6)).toBeTruthy();
+  });
+
+  test("Value is not in the tree", () => {
+    expect(tree.includes(100)).toBeFalsy();
+    expect(tree.includes(-30)).toBeFalsy();
+  });
+});

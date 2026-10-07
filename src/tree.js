@@ -20,10 +20,27 @@ class Tree {
   }
 
   /**
+   * Checks, if a given value is in the tree
+   * @param {Number} value The value to look for
+   * @param {Node} currentNode The current node that is visited
+   * @returns True, if the value is in the tree, false otherwise
+   */
+  includes(value, currentNode = this.root) {
+    //Base Case
+    if (currentNode === null) return false;
+    if (currentNode.data === value) return true
+
+    //Recursive Case
+    const nextNode = value < currentNode.data ? currentNode.left : currentNode.right;
+
+    return this.includes(value, nextNode);
+  }
+
+  /**
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
-   * @param {string} prefix A string to print in every line
-   * @param {boolean} isLeft Should be true if the node is the root
+   * @param {String} prefix A string to print in every line
+   * @param {Boolean} isLeft Should be true if the node is the root
    * of a left subtree, false otherwise
    */
   prettyPrint(node, prefix = "", isLeft = true) {
@@ -37,8 +54,8 @@ class Tree {
   }
 
   /**
-   * Builds a Balanced Binary Search Tree from an array
-   * @param {array} array The array to build the tree from
+   * Builds a Balanced Binary Search Tree from an array of numbers
+   * @param {Array<Number>} array The array to build the tree from
    * @returns The root node of the built tree
    */
   #buildTree(array) {
