@@ -86,3 +86,24 @@ describe("Function test: insert", () => {
     expect(tree.root.right.left.left).toBeNull();
   });
 });
+
+describe("Function test: deleteItem", () => {
+  const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+
+  test("Delete leaf node", () => {
+    tree.deleteItem(2);
+    expect(tree.root.left.left).toBeNull();
+  });
+
+  test("Delete node with one child", () => {
+    tree.deleteItem(3);
+    expect(tree.root.left.data).toBe(4);
+  });
+
+  test("Delete node with two children", () => {
+    tree.deleteItem(7);
+    expect(tree.root.right.data).toBe(8);
+    expect(tree.root.right.left.data).toBe(6);
+    expect(tree.root.right.right).toBeNull();
+  });
+});
