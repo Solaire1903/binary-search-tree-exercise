@@ -44,7 +44,7 @@ class Tree {
    */
   insert(value, currentNode = this.root) {
     //Do nothing if value already exists in the tree
-    if (this.includes(value)) return;
+    if (currentNode.data === value) return;
 
     //Base Case
     if (value < currentNode.data && currentNode.left === null) {
@@ -65,8 +65,7 @@ class Tree {
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
    * @param {String} prefix A string to print in every line
-   * @param {Boolean} isLeft Should be true if the node is the root
-   * of a left subtree, false otherwise
+   * @param {Boolean} isLeft True, if the node is a left child, false otherwise
    */
   prettyPrint(node, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
