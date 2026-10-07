@@ -1,3 +1,1 @@
-# node-template
-
-Template for Node.js based projects that don't have a GUI
+Implementation of a Balanced Binary Search Tree (BST) as an exercise
