@@ -68,3 +68,21 @@ describe("Function test: includes", () => {
     expect(tree.includes(-30)).toBeFalsy();
   });
 });
+
+describe("Function test: insert", () => {
+  const tree = new Tree([1, 2, 3, 5, 6, 7, 9]);
+
+  test("Insert value correctly", () => {
+    tree.insert(4);
+    tree.insert(8);
+
+    expect(tree.root.left.right.right.data).toBe(4);
+    expect(tree.root.right.right.left.data).toBe(8);
+  });
+
+  test("Don't insert duplicate value", () => {
+    tree.insert(5);
+
+    expect(tree.root.right.left.left).toBeNull();
+  });
+});

@@ -28,12 +28,37 @@ class Tree {
   includes(value, currentNode = this.root) {
     //Base Case
     if (currentNode === null) return false;
-    if (currentNode.data === value) return true
+    if (currentNode.data === value) return true;
 
     //Recursive Case
-    const nextNode = value < currentNode.data ? currentNode.left : currentNode.right;
+    const nextNode =
+      value < currentNode.data ? currentNode.left : currentNode.right;
 
     return this.includes(value, nextNode);
+  }
+
+  /**
+   * Inserts a given value into the tree
+   * @param {Number} value The value to insert
+   * @param {Node} currentNode The current node that is visited
+   */
+  insert(value, currentNode = this.root) {
+    //Do nothing if value already exists in the tree
+    if (this.includes(value)) return;
+
+    //Base Case
+    if (value < currentNode.data && currentNode.left === null) {
+      currentNode.left = new Node(value);
+      return;
+    }
+    if (value > currentNode.data && currentNode.right === null) {
+      currentNode.right = new Node(value);
+      return;
+    }
+
+    //Recursive Case
+    if (value < currentNode.data) this.insert(value, currentNode.left);
+    else this.insert(value, currentNode.right);
   }
 
   /**
