@@ -43,4 +43,13 @@ const mergeSort = (array) => {
   return sortedArray;
 };
 
-export default mergeSort;
+/**
+ * Removes all duplicate values from the array and sorts it
+ * @param {array} array The array to sanitize
+ * @returns The sorted array without duplicate values
+ */
+const sanitizeArray = (array) => {
+  return mergeSort([...new Set(array)]);
+};
+
+export default sanitizeArray;
