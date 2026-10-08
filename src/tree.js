@@ -105,8 +105,7 @@ class Tree {
    * @param {Function} callback The callback function
    */
   levelOrderForEach(callback) {
-    if (!this.#isValidFunction(callback))
-      throw new Error("Must provide a valid callback function");
+    if (!this.#isValidFunction(callback)) throw this.#callbackError();
     if (this.#isEmpty()) return;
 
     const queue = [this.root];
@@ -197,6 +196,13 @@ class Tree {
    */
   #isValidFunction(func) {
     return typeof func === "function";
+  }
+
+  /**Returns a new error with a callback warning
+   * @returns The callback error
+   */
+  #callbackError() {
+    return new Error("Must provide a valid callback function");
   }
 }
 
