@@ -26,11 +26,9 @@ class Tree {
    * @returns True, if the value is in the tree, false otherwise
    */
   includes(value, currentNode = this.root) {
-    //Base Case
     if (currentNode === null) return false;
     if (currentNode.data === value) return true;
 
-    //Recursive Case
     const nextNode =
       value < currentNode.data ? currentNode.left : currentNode.right;
 
@@ -46,7 +44,6 @@ class Tree {
     //Do nothing if value already exists in the tree
     if (currentNode.data === value) return;
 
-    //Base Case
     if (value < currentNode.data && currentNode.left === null) {
       currentNode.left = new Node(value);
       return;
@@ -56,9 +53,50 @@ class Tree {
       return;
     }
 
-    //Recursive Case
     if (value < currentNode.data) this.insert(value, currentNode.left);
     else this.insert(value, currentNode.right);
+  }
+
+  /**
+   * Deletes a given value from the tree
+   * @param {Number} value The value to delete
+   * @param {Node} currentNode The current node that is visited
+   * @param {Node} prevNode The node that was visited in the previous call
+   * @param {Boolean} isLeft True, if the node is a left child, false otherwise
+   */
+  deleteItem(value, currentNode = this.root, prevNode = null, isLeft = false) {
+    const isRoot = currentNode === this.root;
+
+    if (value === currentNode.data) {
+      //Found node has 0 or 1 child
+      if (currentNode.left === null || currentNode.right === null) {
+        let nextNode = currentNode.left;
+        if (currentNode.left === null) nextNode = currentNode.right;
+
+        if (isRoot) {
+          this.root = nextNode;
+          return;
+        }
+        isLeft ? (prevNode.left = nextNode) : (prevNode.right = nextNode);
+        return;
+      }
+
+      //Found node has 2 children
+      else {
+        //Successor is the smallest value in the right subtree
+        const successorValue = this.#findSmallestValue(currentNode.right);
+        currentNode.data = successorValue;
+        this.deleteItem(successorValue, currentNode.right, currentNode, false);
+      }
+    }
+
+    if (value < currentNode.data) {
+      if (currentNode.left === null) return;
+      this.deleteItem(value, currentNode.left, currentNode, true);
+    } else {
+      if (currentNode.left === null) return;
+      this.deleteItem(value, currentNode.right, currentNode, false);
+    }
   }
 
   /**
@@ -110,6 +148,18 @@ class Tree {
     const rightChild = this.#buildTree(rightHalf);
 
     return new Node(rootNodeValue, leftChild, rightChild);
+  }
+
+  /**
+   * Finds the smallest value in the tree, starting from the given node
+   * @param {Node} root The root of the tree to search through
+   * @returns {Number} The smallest value in the tree
+   */
+  #findSmallestValue(root) {
+    let currentNode = root;
+    while (currentNode.left !== null) currentNode = currentNode.left;
+
+    return currentNode.data;
   }
 }
 
