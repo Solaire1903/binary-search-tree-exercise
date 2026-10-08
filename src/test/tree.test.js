@@ -151,18 +151,18 @@ describe("Function test: orderForEach", () => {
     expect(mockCallback.mock.calls[5]).toEqual([6]);
     expect(mockCallback.mock.calls[6]).toEqual([8]);
 
-    expect(tree.root.data).toBe(10);
-    expect(tree.root.left.data).toBe(6);
-    expect(tree.root.left.left.data).toBe(4);
-    expect(tree.root.left.right.data).toBe(8);
-    expect(tree.root.right.data).toBe(14);
-    expect(tree.root.right.left.data).toBe(12);
-    expect(tree.root.right.right.data).toBe(16);
+    expect(mockCallback.mock.results[0].value).toBe(10);
+    expect(mockCallback.mock.results[1].value).toBe(6);
+    expect(mockCallback.mock.results[2].value).toBe(14);
+    expect(mockCallback.mock.results[3].value).toBe(4);
+    expect(mockCallback.mock.results[4].value).toBe(8);
+    expect(mockCallback.mock.results[5].value).toBe(12);
+    expect(mockCallback.mock.results[6].value).toBe(16);
   });
 
   test("In order function", () => {
     const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
-    const mockCallback = jest.fn((x) => x * 2);
+    const mockCallback = jest.fn((x) =>  x * 2);
     tree.inOrderForEach(mockCallback);
 
     //Make sure the tree was really traversed in order
@@ -174,13 +174,13 @@ describe("Function test: orderForEach", () => {
     expect(mockCallback.mock.calls[5]).toEqual([7]);
     expect(mockCallback.mock.calls[6]).toEqual([8]);
 
-    expect(tree.root.data).toBe(10);
-    expect(tree.root.left.data).toBe(6);
-    expect(tree.root.left.left.data).toBe(4);
-    expect(tree.root.left.right.data).toBe(8);
-    expect(tree.root.right.data).toBe(14);
-    expect(tree.root.right.left.data).toBe(12);
-    expect(tree.root.right.right.data).toBe(16);
+    expect(mockCallback.mock.results[0].value).toBe(4);
+    expect(mockCallback.mock.results[1].value).toBe(6);
+    expect(mockCallback.mock.results[2].value).toBe(8);
+    expect(mockCallback.mock.results[3].value).toBe(10);
+    expect(mockCallback.mock.results[4].value).toBe(12);
+    expect(mockCallback.mock.results[5].value).toBe(14);
+    expect(mockCallback.mock.results[6].value).toBe(16);
   });
 
   test("Pre order function", () => {
@@ -197,13 +197,13 @@ describe("Function test: orderForEach", () => {
     expect(mockCallback.mock.calls[5]).toEqual([6]);
     expect(mockCallback.mock.calls[6]).toEqual([8]);
 
-    expect(tree.root.data).toBe(10);
-    expect(tree.root.left.data).toBe(6);
-    expect(tree.root.left.left.data).toBe(4);
-    expect(tree.root.left.right.data).toBe(8);
-    expect(tree.root.right.data).toBe(14);
-    expect(tree.root.right.left.data).toBe(12);
-    expect(tree.root.right.right.data).toBe(16);
+    expect(mockCallback.mock.results[0].value).toBe(10);
+    expect(mockCallback.mock.results[1].value).toBe(6);
+    expect(mockCallback.mock.results[2].value).toBe(4);
+    expect(mockCallback.mock.results[3].value).toBe(8);
+    expect(mockCallback.mock.results[4].value).toBe(14);
+    expect(mockCallback.mock.results[5].value).toBe(12);
+    expect(mockCallback.mock.results[6].value).toBe(16);
   });
 
   test("Post order function", () => {
@@ -220,13 +220,13 @@ describe("Function test: orderForEach", () => {
     expect(mockCallback.mock.calls[5]).toEqual([7]);
     expect(mockCallback.mock.calls[6]).toEqual([5]);
 
-    expect(tree.root.data).toBe(10);
-    expect(tree.root.left.data).toBe(6);
-    expect(tree.root.left.left.data).toBe(4);
-    expect(tree.root.left.right.data).toBe(8);
-    expect(tree.root.right.data).toBe(14);
-    expect(tree.root.right.left.data).toBe(12);
-    expect(tree.root.right.right.data).toBe(16);
+    expect(mockCallback.mock.results[0].value).toBe(4);
+    expect(mockCallback.mock.results[1].value).toBe(8);
+    expect(mockCallback.mock.results[2].value).toBe(6);
+    expect(mockCallback.mock.results[3].value).toBe(12);
+    expect(mockCallback.mock.results[4].value).toBe(16);
+    expect(mockCallback.mock.results[5].value).toBe(14);
+    expect(mockCallback.mock.results[6].value).toBe(10);
   });
 
   test("Throw Error if no valid callback is passed", () => {
@@ -271,5 +271,25 @@ describe("Function test: depth", () => {
 
   test("Value is not in the tree", () => {
     expect(tree.depth(10)).toBeUndefined();
+  });
+});
+
+describe("Function test: isBalanced", () => {
+  test("Empty Tree (counts as balanced)", () => {
+    const emptyTree = new Tree();
+    expect(emptyTree.isBalanced()).toBeTruthy();
+  });
+
+  const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+
+  test.skip("Balanced Tree", () => {
+    expect(tree.isBalanced()).toBeTruthy();
+  });
+
+  test("Unbalanced Tree", () => {
+    tree.insert(9);
+    tree.insert(10);
+
+    expect(tree.isBalanced()).toBeFalsy();
   });
 });

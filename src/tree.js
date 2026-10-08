@@ -120,7 +120,7 @@ class Tree {
       if (currentNode.left !== null) queue.push(currentNode.left);
       if (currentNode.right !== null) queue.push(currentNode.right);
 
-      currentNode.data = callback(currentNode.data);
+      callback(currentNode.data);
     }
   }
 
@@ -135,7 +135,7 @@ class Tree {
     if (currentNode === null) return;
 
     this.inOrderForEach(callback, currentNode.left);
-    currentNode.data = callback(currentNode.data);
+    callback(currentNode.data);
     this.inOrderForEach(callback, currentNode.right);
   }
 
@@ -149,7 +149,7 @@ class Tree {
 
     if (currentNode === null) return;
 
-    currentNode.data = callback(currentNode.data);
+    callback(currentNode.data);
     this.preOrderForEach(callback, currentNode.left);
     this.preOrderForEach(callback, currentNode.right);
   }
@@ -166,7 +166,7 @@ class Tree {
 
     this.postOrderForEach(callback, currentNode.left);
     this.postOrderForEach(callback, currentNode.right);
-    currentNode.data = callback(currentNode.data);
+    callback(currentNode.data);
   }
 
   /**
@@ -208,6 +208,16 @@ class Tree {
     const nextNode =
       value < currentNode.data ? currentNode.left : currentNode.right;
     return this.depth(value, nextNode, level + 1);
+  }
+
+  /**
+   * Checks if the tree is balanced
+   * @returns True if the tree is balanced, false otherwise
+   */
+  isBalanced() {
+    if (this.#isEmpty()) return true;
+
+    //Implement the function
   }
 
   /**
