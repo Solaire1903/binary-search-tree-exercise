@@ -41,6 +41,12 @@ class Tree {
    * @param {Node} currentNode The current node that is visited
    */
   insert(value, currentNode = this.root) {
+    //Check for empty tree
+    if (this.root === null) {
+      this.root = new Node(value);
+      return;
+    }
+
     //Do nothing if value already exists in the tree
     if (currentNode.data === value) return;
 

@@ -85,6 +85,12 @@ describe("Function test: insert", () => {
 
     expect(tree.root.right.left.left).toBeNull();
   });
+
+  test("Insert into empty tree", () => {
+    const newTree = new Tree();
+    newTree.insert(10);
+    expect(newTree.root.data).toBe(10);
+  });
 });
 
 describe("Function test: deleteItem", () => {
