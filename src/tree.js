@@ -100,6 +100,26 @@ class Tree {
   }
 
   /**
+   * Traverses the tree in level order and calls the callback
+   * function on every value
+   * @param {Function} callback The callback function
+   */
+  levelOrderForEach(callback) {
+    if (!this.#isValidFunction(callback))
+      throw new Error("Must provide a valid callback function");
+    if (this.#isEmpty()) return;
+
+    const queue = [this.root];
+    while (queue.length > 0) {
+      const currentNode = queue.shift();
+      if (currentNode.left !== null) queue.push(currentNode.left);
+      if (currentNode.right !== null) queue.push(currentNode.right);
+
+      currentNode.data = callback(currentNode.data);
+    }
+  }
+
+  /**
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
    * @param {String} prefix A string to print in every line
@@ -160,6 +180,23 @@ class Tree {
     while (currentNode.left !== null) currentNode = currentNode.left;
 
     return currentNode.data;
+  }
+
+  /**
+   * Checks if the tree is empty
+   * @returns True if the tree is empty, false otherwise
+   */
+  #isEmpty() {
+    return this.root === null;
+  }
+
+  /**
+   * Checks if the passed parameter is a valid function
+   * @param {Function} func The function to check
+   * @returns True if the function is valid, false otherwise
+   */
+  #isValidFunction(func) {
+    return typeof func === "function";
   }
 }
 

@@ -129,3 +129,35 @@ describe("Function test: deleteItem", () => {
     expect(tree.root).toBeNull();
   });
 });
+
+describe("Function test: orderForEach", () => {
+  const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+  const mockCallback = jest.fn((x) => x * 2);
+
+  test("Level order function", () => {
+    tree.levelOrderForEach(mockCallback);
+    expect(tree.root.data).toBe(10);
+    expect(tree.root.left.data).toBe(6);
+    expect(tree.root.left.left.data).toBe(4);
+    expect(tree.root.left.right.data).toBe(8);
+    expect(tree.root.right.data).toBe(14);
+    expect(tree.root.right.left.data).toBe(12);
+    expect(tree.root.right.right.data).toBe(16);
+  });
+
+  test.skip("Recursive level order function", () => {
+    tree.levelOrderForEachRecursive(mockCallback);
+    expect(tree.root.data).toBe(20);
+    expect(tree.root.left.data).toBe(12);
+    expect(tree.root.left.left.data).toBe(8);
+    expect(tree.root.left.right.data).toBe(16);
+    expect(tree.root.right.data).toBe(28);
+    expect(tree.root.right.left.data).toBe(24);
+    expect(tree.root.right.right.data).toBe(32);
+  });
+
+  test("Throw Error if no valid callback is passed", () => {
+    expect(() => tree.levelOrderForEach()).toThrow(Error);
+    //expect(() => tree.levelOrderForEachRecursive()).toThrow(Error);
+  });
+});
