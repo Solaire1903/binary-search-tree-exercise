@@ -136,6 +136,16 @@ describe("Function test: orderForEach", () => {
 
   test("Level order function", () => {
     tree.levelOrderForEach(mockCallback);
+
+    //Make sure the tree was really traversed in level order
+    expect(mockCallback.mock.calls[0]).toEqual([5]);
+    expect(mockCallback.mock.calls[1]).toEqual([3]);
+    expect(mockCallback.mock.calls[2]).toEqual([7]);
+    expect(mockCallback.mock.calls[3]).toEqual([2]);
+    expect(mockCallback.mock.calls[4]).toEqual([4]);
+    expect(mockCallback.mock.calls[5]).toEqual([6]);
+    expect(mockCallback.mock.calls[6]).toEqual([8]);
+
     expect(tree.root.data).toBe(10);
     expect(tree.root.left.data).toBe(6);
     expect(tree.root.left.left.data).toBe(4);
