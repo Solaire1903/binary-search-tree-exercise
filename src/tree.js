@@ -194,6 +194,23 @@ class Tree {
   }
 
   /**
+   * Returns the depth of the node with the given value
+   * @param {Number} value The value of the node to search the depth for
+   * @param {Node} currentNode The current node that is visited
+   * @param {Number} level The current depth from the root node
+   * @returns The depth of the node with the given value
+   */
+  depth(value, currentNode = this.root, level = 0) {
+    if (currentNode === null) return undefined;
+
+    if (value === currentNode.data) return level;
+
+    const nextNode =
+      value < currentNode.data ? currentNode.left : currentNode.right;
+    return this.depth(value, nextNode, level + 1);
+  }
+
+  /**
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
    * @param {String} prefix A string to print in every line

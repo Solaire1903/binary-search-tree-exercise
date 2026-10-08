@@ -256,3 +256,20 @@ describe("Function test: height", () => {
     expect(tree.height(10)).toBeUndefined();
   });
 });
+
+describe("Function test: depth", () => {
+  const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+
+  test("Get correct depth", () => {
+    expect(tree.depth(5)).toBe(0);
+    expect(tree.depth(3)).toBe(1);
+    expect(tree.depth(6)).toBe(2);
+
+    tree.insert(9);
+    expect(tree.depth(9)).toBe(3);
+  });
+
+  test("Value is not in the tree", () => {
+    expect(tree.depth(10)).toBeUndefined();
+  });
+});
