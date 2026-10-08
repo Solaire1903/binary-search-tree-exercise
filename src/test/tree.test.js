@@ -239,3 +239,20 @@ describe("Function test: orderForEach", () => {
     expect(() => tree.postOrderForEach()).toThrow(errorMessage);
   });
 });
+
+describe("Function test: height", () => {
+  const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+
+  test("Get correct height", () => {
+    expect(tree.height(5)).toBe(2);
+    expect(tree.height(3)).toBe(1);
+    expect(tree.height(6)).toBe(0);
+
+    tree.insert(9);
+    expect(tree.height(5)).toBe(3);
+  });
+
+  test("Value is not in the tree", () => {
+    expect(tree.height(10)).toBeUndefined();
+  });
+});

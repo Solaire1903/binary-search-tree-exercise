@@ -170,6 +170,30 @@ class Tree {
   }
 
   /**
+   * Returns the height of the node with the given value
+   * @param {Number} value The value of the node to search the height for
+   * @param {Node} currentNode The current node that is visited
+   * @param {Number} level The current depth from the value node
+   * @returns The height of the node with the given value
+   */
+  height(value, currentNode = this.#getNode(value), level = 0) {
+    if (currentNode === undefined) return undefined;
+
+    if (currentNode.left === null && currentNode.right === null) return level;
+
+    const leftHeight =
+      currentNode.left !== null
+        ? this.height(null, currentNode.left, level + 1)
+        : level;
+    const rightHeight =
+      currentNode.right !== null
+        ? this.height(null, currentNode.right, level + 1)
+        : level;
+
+    return leftHeight > rightHeight ? leftHeight : rightHeight;
+  }
+
+  /**
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
    * @param {String} prefix A string to print in every line
@@ -254,6 +278,22 @@ class Tree {
    */
   #generateCallbackError() {
     return new Error("Must provide a valid callback function");
+  }
+
+  /**
+   * Returns the node in the tree with the given value
+   * @param {Number} value The value to search the node for
+   * @param {Node} currentNode The current node that is visited
+   * @returns The node with the given value, undefined if
+   * it is not in the tree
+   */
+  #getNode(value, currentNode = this.root) {
+    if (currentNode === null) return undefined;
+    if (currentNode.data === value) return currentNode;
+
+    const nextNode =
+      value < currentNode.data ? currentNode.left : currentNode.right;
+    return this.#getNode(value, nextNode);
   }
 }
 
