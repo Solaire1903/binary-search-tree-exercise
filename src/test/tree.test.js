@@ -147,7 +147,7 @@ describe("Function test: orderForEach", () => {
 
   test("Throw Error if no valid callback is passed", () => {
     const errorMessage = "Must provide a valid callback function";
-    
+
     expect(() => tree.levelOrderForEach()).toThrow(errorMessage);
   });
 });
