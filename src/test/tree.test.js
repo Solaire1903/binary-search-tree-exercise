@@ -155,9 +155,31 @@ describe("Function test: orderForEach", () => {
     expect(tree.root.right.right.data).toBe(16);
   });
 
+  test("In order function", () => {
+    tree.inOrderForEach(mockCallback);
+
+    //Make sure the tree was really traversed in order
+    expect(mockCallback.mock.calls[7]).toEqual([4]);
+    expect(mockCallback.mock.calls[8]).toEqual([6]);
+    expect(mockCallback.mock.calls[9]).toEqual([8]);
+    expect(mockCallback.mock.calls[10]).toEqual([10]);
+    expect(mockCallback.mock.calls[11]).toEqual([12]);
+    expect(mockCallback.mock.calls[12]).toEqual([14]);
+    expect(mockCallback.mock.calls[13]).toEqual([16]);
+
+    expect(tree.root.data).toBe(20);
+    expect(tree.root.left.data).toBe(12);
+    expect(tree.root.left.left.data).toBe(8);
+    expect(tree.root.left.right.data).toBe(16);
+    expect(tree.root.right.data).toBe(28);
+    expect(tree.root.right.left.data).toBe(24);
+    expect(tree.root.right.right.data).toBe(32);
+  });
+
   test("Throw Error if no valid callback is passed", () => {
     const errorMessage = "Must provide a valid callback function";
 
     expect(() => tree.levelOrderForEach()).toThrow(errorMessage);
+    expect(() => tree.inOrderForEach()).toThrow(errorMessage);
   });
 });
