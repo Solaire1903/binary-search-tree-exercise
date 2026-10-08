@@ -131,10 +131,9 @@ describe("Function test: deleteItem", () => {
 });
 
 describe("Function test: orderForEach", () => {
-  const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
-  const mockCallback = jest.fn((x) => x * 2);
-
   test("Level order function", () => {
+    const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+    const mockCallback = jest.fn((x) => x * 2);
     tree.levelOrderForEach(mockCallback);
 
     //Make sure the tree was really traversed in level order
@@ -156,27 +155,30 @@ describe("Function test: orderForEach", () => {
   });
 
   test("In order function", () => {
+    const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
+    const mockCallback = jest.fn((x) => x * 2);
     tree.inOrderForEach(mockCallback);
 
     //Make sure the tree was really traversed in order
-    expect(mockCallback.mock.calls[7]).toEqual([4]);
-    expect(mockCallback.mock.calls[8]).toEqual([6]);
-    expect(mockCallback.mock.calls[9]).toEqual([8]);
-    expect(mockCallback.mock.calls[10]).toEqual([10]);
-    expect(mockCallback.mock.calls[11]).toEqual([12]);
-    expect(mockCallback.mock.calls[12]).toEqual([14]);
-    expect(mockCallback.mock.calls[13]).toEqual([16]);
+    expect(mockCallback.mock.calls[0]).toEqual([2]);
+    expect(mockCallback.mock.calls[1]).toEqual([3]);
+    expect(mockCallback.mock.calls[2]).toEqual([4]);
+    expect(mockCallback.mock.calls[3]).toEqual([5]);
+    expect(mockCallback.mock.calls[4]).toEqual([6]);
+    expect(mockCallback.mock.calls[5]).toEqual([7]);
+    expect(mockCallback.mock.calls[6]).toEqual([8]);
 
-    expect(tree.root.data).toBe(20);
-    expect(tree.root.left.data).toBe(12);
-    expect(tree.root.left.left.data).toBe(8);
-    expect(tree.root.left.right.data).toBe(16);
-    expect(tree.root.right.data).toBe(28);
-    expect(tree.root.right.left.data).toBe(24);
-    expect(tree.root.right.right.data).toBe(32);
+    expect(tree.root.data).toBe(10);
+    expect(tree.root.left.data).toBe(6);
+    expect(tree.root.left.left.data).toBe(4);
+    expect(tree.root.left.right.data).toBe(8);
+    expect(tree.root.right.data).toBe(14);
+    expect(tree.root.right.left.data).toBe(12);
+    expect(tree.root.right.right.data).toBe(16);
   });
 
   test("Throw Error if no valid callback is passed", () => {
+    const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
     const errorMessage = "Must provide a valid callback function";
 
     expect(() => tree.levelOrderForEach()).toThrow(errorMessage);
