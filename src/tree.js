@@ -134,6 +134,36 @@ class Tree {
   }
 
   /**
+   * Traverses the tree pre order and calls the callback
+   * function on every value
+   * @param {Function} callback The callback function
+   */
+  preOrderForEach(callback, currentNode = this.root) {
+    if (!this.#isValidFunction(callback)) throw this.#generateCallbackError();
+
+    if (currentNode === null) return;
+
+    currentNode.data = callback(currentNode.data);
+    this.preOrderForEach(callback, currentNode.left);
+    this.preOrderForEach(callback, currentNode.right);
+  }
+
+  /**
+   * Traverses the tree post order and calls the callback
+   * function on every value
+   * @param {Function} callback The callback function
+   */
+  postOrderForEach(callback, currentNode = this.root) {
+    if (!this.#isValidFunction(callback)) throw this.#generateCallbackError();
+
+    if (currentNode === null) return;
+
+    this.postOrderForEach(callback, currentNode.left);
+    this.postOrderForEach(callback, currentNode.right);
+    currentNode.data = callback(currentNode.data);
+  }
+
+  /**
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
    * @param {String} prefix A string to print in every line
