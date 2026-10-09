@@ -249,7 +249,7 @@ class Tree {
    * @param {String} prefix A string to print in every line
    * @param {Boolean} isLeft True, if the node is a left child, false otherwise
    */
-  prettyPrint(node, prefix = "", isLeft = true) {
+  prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
     }
