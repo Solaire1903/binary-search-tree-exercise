@@ -231,6 +231,19 @@ class Tree {
   }
 
   /**
+   * Balances the tree
+   */
+  rebalance() {
+    const sortedArray = [];
+
+    this.inOrderForEach((value) => {
+      sortedArray.push(value);
+    });
+
+    this.root = this.#buildTree(sortedArray);
+  }
+
+  /**
    * Prints the tree to the console
    * @param {Node} node The root node of the tree to print
    * @param {String} prefix A string to print in every line

@@ -297,3 +297,17 @@ describe("Function test: isBalanced", () => {
     expect(tree.isBalanced()).toBeFalsy();
   });
 });
+
+describe("Function test: rebalance", () => {
+  const tree = new Tree([2, 3, 4, 5, 6, 7, 8, 9]);
+  tree.insert(10);
+
+  test("Tree is unbalanced", () => {
+    expect(tree.isBalanced()).toBeFalsy();
+  });
+
+  test("Tree is balanced after function call", () => {
+    tree.rebalance();
+    expect(tree.isBalanced()).toBeTruthy();
+  });
+});
