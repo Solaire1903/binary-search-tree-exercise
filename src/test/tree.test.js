@@ -162,7 +162,7 @@ describe("Function test: orderForEach", () => {
 
   test("In order function", () => {
     const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
-    const mockCallback = jest.fn((x) =>  x * 2);
+    const mockCallback = jest.fn((x) => x * 2);
     tree.inOrderForEach(mockCallback);
 
     //Make sure the tree was really traversed in order
@@ -282,12 +282,16 @@ describe("Function test: isBalanced", () => {
 
   const tree = new Tree([2, 3, 4, 5, 6, 7, 8]);
 
-  test.skip("Balanced Tree", () => {
+  test("Balanced Tree, all leaf nodes same height", () => {
+    expect(tree.isBalanced()).toBeTruthy();
+  });
+
+  test("Balanced Tree, leaf node height difference is max 1", () => {
+    tree.insert(9);
     expect(tree.isBalanced()).toBeTruthy();
   });
 
   test("Unbalanced Tree", () => {
-    tree.insert(9);
     tree.insert(10);
 
     expect(tree.isBalanced()).toBeFalsy();

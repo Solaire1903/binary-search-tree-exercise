@@ -212,12 +212,22 @@ class Tree {
 
   /**
    * Checks if the tree is balanced
+   * @param currentNode The current node that is visited
    * @returns True if the tree is balanced, false otherwise
    */
-  isBalanced() {
-    if (this.#isEmpty()) return true;
+  isBalanced(currentNode = this.root) {
+    if (currentNode === null) return true;
 
-    //Implement the function
+    const leftHeight =
+      currentNode.left !== null ? this.height(null, currentNode.left) : -1;
+    const rightHeight =
+      currentNode.right !== null ? this.height(null, currentNode.right) : -1;
+
+    if (Math.abs(leftHeight - rightHeight) > 1) return false;
+
+    return (
+      this.isBalanced(currentNode.left) && this.isBalanced(currentNode.right)
+    );
   }
 
   /**
